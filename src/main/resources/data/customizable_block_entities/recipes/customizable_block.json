@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:cobblestone"
+    },
+    "X": {
+      "item": "customizable_block_entities:figura_mark"
+    }
+  },
+  "result": {
+    "item": "customizable_block_entities:customizable_block",
+    "count": 8
+  }
+}

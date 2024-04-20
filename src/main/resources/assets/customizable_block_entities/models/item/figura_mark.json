@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "customizable_block_entities:item/figura_mark"
+  }
+}

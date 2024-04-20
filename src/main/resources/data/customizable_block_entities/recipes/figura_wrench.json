@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "X",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "customizable_block_entities:figura_mark"
+    }
+  },
+  "result": {
+    "item": "customizable_block_entities:figura_wrench"
+  }
+}
