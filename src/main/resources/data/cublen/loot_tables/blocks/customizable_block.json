@@ -17,7 +17,7 @@
                 {
                   "op": "replace",
                   "source": "Owner",
-                  "target": "BlockEntityTag.Owner"
+                  "target": "Owner"
                 }
               ],
               "source": "block_entity"

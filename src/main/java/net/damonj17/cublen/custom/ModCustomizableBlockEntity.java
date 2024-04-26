@@ -51,6 +51,7 @@ import java.util.stream.Collectors;
 
 public class ModCustomizableBlockEntity extends SyncedBlockEntity implements Nameable {
 
+    private Component defaultName = null;
     public static final String OWNER_TAG = "Owner";
     public static final String CUSTOM_NAME_TAG = "CustomName";
 
@@ -61,6 +62,7 @@ public class ModCustomizableBlockEntity extends SyncedBlockEntity implements Nam
     public ModCustomizableBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(Registry.BlockEntityTypes.CUSTOMIZABLEBLOCK.get(), pPos, pBlockState);
         owner = Owner.none();
+        this.defaultName = defaultName;
     }
 
     public static void appendHoverText(ItemStack stack, BlockGetter level, List<Component> tooltip, TooltipFlag flag) {
@@ -79,9 +81,9 @@ public class ModCustomizableBlockEntity extends SyncedBlockEntity implements Nam
         super.saveAdditional(tag);
         if (owner.getType() != Owner.Type.NONE)
             tag.put(OWNER_TAG, owner.serializeNBT());
-        if (this.customName != null)
-            tag.putString(CUSTOM_NAME_TAG, Component.Serializer.toJson(this.customName));
-
+        if (this.hasCustomName()) {
+            tag.putString("CustomName", Component.Serializer.toJson(customName));
+        }
     }
 
     @Override
@@ -89,8 +91,9 @@ public class ModCustomizableBlockEntity extends SyncedBlockEntity implements Nam
         super.load(tag);
         if (tag.contains(OWNER_TAG, CompoundTag.TAG_COMPOUND))
             owner.deserializeNBT(tag.getCompound(OWNER_TAG));
-        if (tag.contains(CUSTOM_NAME_TAG, CompoundTag.TAG_STRING))
-            this.customName = Component.Serializer.fromJson(tag.getString(CUSTOM_NAME_TAG));
+        if (this.hasCustomName()) {
+            tag.putString("CustomName", Component.Serializer.toJson(customName));
+        }
     }
 
 
@@ -121,16 +124,30 @@ public class ModCustomizableBlockEntity extends SyncedBlockEntity implements Nam
 
 
     // Name
+    @Nullable
     @Override
-    public @NotNull Component getDisplayName() {
-        return getName();
+    public Component getCustomName() {
+        return customName;
     }
 
-    public @NotNull Component getName() {
-        return this.customName != null ? this.customName : (Component.translatable("block.cublen.customizable_block"));
+    public final void setCustomName(Component name) {
+        customName = name;
     }
 
-    public void setCustomName(Component customName) {
-        this.customName = customName;
+    @NotNull
+    public final Component getName() {
+        return this.hasCustomName() ? customName : defaultName;
+    }
+
+    @NotNull
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag updateTag = super.getUpdateTag();
+
+        if (customName != null) {
+            updateTag.putString("CustomName", Component.Serializer.toJson(customName));
+        }
+
+        return updateTag;
     }
 }
