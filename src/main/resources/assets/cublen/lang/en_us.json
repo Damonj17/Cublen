@@ -4,5 +4,10 @@
 
   "block.cublen.customizable_block": "Customizable Block",
 
-  "creativetab.cublen": "Cublen"
+  "creativetab.cublen": "Cublen",
+
+  "cublen.permissions.value.cublen_permission": "Toggle Cublen Blocks",
+  "cublen.permissions.value.cublen_permission.tooltip": "Toggles if Cublen Blocks should render the Avatar instead of the vanilla blocks",
+  "cublen.gui.cublenscreen": "Cublen",
+  "cublen.gui.cublenscreen.next.tooltip": "Next Block"
 }
